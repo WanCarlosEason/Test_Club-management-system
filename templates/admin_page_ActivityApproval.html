@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社团活动审批系统</title>
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../static/css/Club_main.css"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <span class="left">社 团 活 动 审 批</span>
+        <span class="right">你好，{{ user }} 管理员!</span>
+        <span class="right_right"><a href="/?action=logout">退出登录</a></span>
+    </div>
+    <div class="leftside">
+        <ul>
+            <li class="{% if request.path == '/admin_page_Student' %}active{% endif %}"><a href="/admin_page_Student">学生信息录入</a></li>
+            <li class="{% if request.path == '/admin_page_StudentManagement' %}active{% endif %}"><a href="/admin_page_StudentManagement">学生信息变动</a></li>
+            <li class="{% if request.path == '/admin_page_StudentQuery' %}active{% endif %}"><a href="/admin_page_StudentQuery">学生信息查询</a></li>
+            <li class="{% if request.path == '/activity_application' %}active{% endif %}"><a href="/activity_application">社团活动申请</a></li>
+            {% if user_power == 2 %}
+            <li class="{% if request.path == '/admin_page_Club' %}active{% endif %}"><a href="/admin_page_Club">社团信息录入</a></li>
+            <li class="{% if request.path == '/admin_page_ClubManagement' %}active{% endif %}"><a href="/admin_page_ClubManagement">社团信息变动</a></li>
+            <li class="{% if request.path == '/admin_page_ClubQuery' %}active{% endif %}"><a href="/admin_page_ClubQuery">社团信息查询</a></li>
+            <li class="{% if request.path == '/admin_page_ActivityApproval' %}active{% endif %}"><a href="/admin_page_ActivityApproval">活动审批</a></li>
+            <li class="{% if request.path == '/admin_page_UserManagement' %}active{% endif %}"><a href="/admin_page_UserManagement">管理员人员变动</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <h1 class="sub-header">社 团 活 动 审 批 系 统</h1>&nbsp;&nbsp;
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>社团ID</th>
+                        <th>社团名称</th>
+                        <th>活动名称</th>
+                        <th>使用场地</th>
+                        <th>使用时间</th>
+                        <th>是否批准</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activities %}
+                    <tr>
+                        <td>{{ activity[1] }}</td>
+                        <td>{{ activity[2] }}</td>
+                        <td>{{ activity[3] }}</td>
+                        <td>{{ activity[4] }}</td>
+                        <td>{{ activity[5] }}</td>
+                        <td>
+                            <form action="/admin_page_ActivityApproval" method="post">
+                                <select name="approved_status" onchange="this.form.submit()">
+                                    <option value="是" {% if activity[6] == '是' %}selected{% endif %}>是</option>
+                                    <option value="否" {% if activity[6] == '否' %}selected{% endif %}>否</option>
+                                </select>
+                                <input type="hidden" name="application_id" value="{{ activity[0] }}">
+                                <input type="hidden" name="action" value="update_status">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/admin_page_ActivityApproval" method="post" onsubmit="return confirm('确定删除吗?');">
+                                <input type="hidden" name="application_id" value="{{ activity[0] }}">
+                                <input type="hidden" name="action" value="delete_application">
+                                <input type="submit" value="删除">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

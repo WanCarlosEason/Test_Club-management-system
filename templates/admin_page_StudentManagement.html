@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生信息管理</title>
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../static/css/Club_main.css" />
+    <script>
+        function handleSubmit() {
+            const studentId = document.querySelector('input[name="student_id"]').value.trim();
+            const studentClass = document.querySelector('input[name="student_class"]').value.trim();
+            const studentName = document.querySelector('input[name="student_name"]').value.trim();
+            const studentSex = document.querySelector('input[name="student_sex"]').value.trim();
+            const studentClub = document.querySelector('input[name="student_club"]').value.trim();
+            const selectedAction = document.querySelector('select[name="selected_one"]').value;
+
+            // 验证输入是否为空
+            if (!studentId || !studentClass || !studentName || !studentSex || !studentClub) {
+                alert('请填写所有必填字段');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="left">学 生 信 息 变 动</span>
+            <span class="right">你好，{{ user }} 管理员!</span>
+            <span class="right_right"><a href="/?action=logout">退出登录</a></span>
+        </div>
+        <div class="leftside">
+            <ul>
+                <li class="{% if request.path == '/admin_page_Student' %}active{% endif %}"><a href="/admin_page_Student">学生信息录入</a></li>
+                <li class="{% if request.path == '/admin_page_StudentManagement' %}active{% endif %}"><a href="/admin_page_StudentManagement">学生信息变动</a></li>
+                <li class="{% if request.path == '/admin_page_StudentQuery' %}active{% endif %}"><a href="/admin_page_StudentQuery">学生信息查询</a></li>
+                <li class="{% if request.path == '/activity_application' %}active{% endif %}"><a href="/activity_application">社团活动申请</a></li>
+                {% if user_power == 2 %}
+                <li class="{% if request.path == '/admin_page_Club' %}active{% endif %}"><a href="/admin_page_Club">社团信息录入</a></li>
+                <li class="{% if request.path == '/admin_page_ClubManagement' %}active{% endif %}"><a href="/admin_page_ClubManagement">社团信息变动</a></li>
+                <li class="{% if request.path == '/admin_page_ClubQuery' %}active{% endif %}"><a href="/admin_page_ClubQuery">社团信息查询</a></li>
+                <li class="{% if request.path == '/admin_page_ActivityApproval' %}active{% endif %}"><a href="/admin_page_ActivityApproval">活动审批</a></li>
+                <li class="{% if request.path == '/admin_page_UserManagement' %}active{% endif %}"><a href="/admin_page_UserManagement">管理员人员变动</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="container-fluid">
+            <h1 class="sub-header">学 生 信 息 变 动 系 统</h1>&nbsp;&nbsp;
+            <hr>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>学生ID</th>
+                            <th>班级</th>
+                            <th>学生姓名</th>
+                            <th>性别</th>
+                            <th>所属社团</th>
+                            <th>选择(修改/删除)学生信息</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <form action="/admin_page_StudentManagement" method="post" onsubmit="return handleSubmit()">
+                                <td><input class="long" name="student_id" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td><input class="long" name="student_class" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td><input class="long" name="student_name" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td><input class="long" name="student_sex" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td><input class="long" name="student_club" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td>
+                                    <select name="selected_one">
+                                        <option value="修改学生信息" selected="selected">修改学生信息</option>
+                                        <option value="删除学生信息">删除学生信息</option>
+                                    </select>
+                                </td>
+                                <td><input class="last" type="submit" value="操作" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td class="doit"><span>操作结果:{{ insert_result }}</span></td>
+                            </form>
+                        </tr>
+                        <tr>
+                            <td>学生ID</td>
+                            <td>班级</td>
+                            <td>学生姓名</td>
+                            <td>性别</td>
+                            <td>所属社团</td>
+                        </tr>
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result[0] }}</td>
+                            <td>{{ result[1] }}</td>
+                            <td>{{ result[2] }}</td>
+                            <td>{{ result[3] }}</td>
+                            <td>{{ result[4] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

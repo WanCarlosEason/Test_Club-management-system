@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员人员变动</title>
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../static/css/Club_main.css"/>
+    <script>
+        function handleSubmit() {
+            const adminAccount = document.querySelector('input[name="admin_account"]').value.trim();
+            const adminName = document.querySelector('input[name="admin_name"]').value.trim();
+            const adminPassword = document.querySelector('input[name="admin_password"]').value.trim();
+            const adminPower = document.querySelector('select[name="admin_power"]').value;
+            const selectedAction = document.querySelector('select[name="selected_one"]').value;
+    
+            // 验证账号只能是字母和数字的组合
+            const accountRegex = /^[a-zA-Z0-9]+$/;
+            if (!accountRegex.test(adminAccount)) {
+                alert('账号只能包含字母和数字');
+                return false;
+            }
+    
+            // 验证密码只能是字母和数字的组合
+            if (selectedAction !== '删除管理员') {
+                const passwordRegex = /^[a-zA-Z0-9]+$/;
+                if (!passwordRegex.test(adminPassword)) {
+                    alert('密码只能包含字母和数字');
+                    return false;
+                }
+            }
+    
+            // 验证权限只能是1或2
+            if (!['1', '2'].includes(adminPower)) {
+                alert('权限只能为1或2');
+                return false;
+            }
+    
+            return true;
+        }
+    </script>    
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <span class="left">管 理 员 人 员 变 动</span>
+        <span class="right">你好，{{ user }} 管理员!</span>
+        <span class="right_right"><a href="/?action=logout">退出登录</a></span>
+    </div>
+    <div class="leftside">
+        <ul>
+            <li class="{% if request.path == '/admin_page_Student' %}active{% endif %}"><a href="/admin_page_Student">学生信息录入</a></li>
+            <li class="{% if request.path == '/admin_page_StudentManagement' %}active{% endif %}"><a href="/admin_page_StudentManagement">学生信息变动</a></li>
+            <li class="{% if request.path == '/admin_page_StudentQuery' %}active{% endif %}"><a href="/admin_page_StudentQuery">学生信息查询</a></li>
+            <li class="{% if request.path == '/activity_application' %}active{% endif %}"><a href="/activity_application">社团活动申请</a></li>
+            {% if user_power == 2 %}
+            <li class="{% if request.path == '/admin_page_Club' %}active{% endif %}"><a href="/admin_page_Club">社团信息录入</a></li>
+            <li class="{% if request.path == '/admin_page_ClubManagement' %}active{% endif %}"><a href="/admin_page_ClubManagement">社团信息变动</a></li>
+            <li class="{% if request.path == '/admin_page_ClubQuery' %}active{% endif %}"><a href="/admin_page_ClubQuery">社团信息查询</a></li>
+            <li class="{% if request.path == '/admin_page_ActivityApproval' %}active{% endif %}"><a href="/admin_page_ActivityApproval">活动审批</a></li>
+            <li class="{% if request.path == '/admin_page_UserManagement' %}active{% endif %}"><a href="/admin_page_UserManagement">管理员人员变动</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <h1 class="sub-header">管 理 员 人 员 变 动 系 统</h1>&nbsp;&nbsp;
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>账号<span>(限字母和数字组合)</span></th>
+                        <th>用户名</th>
+                        <th>密码<span>(限字母和数字组合的密码)</span></th>
+                        <th>权限<span>(1: 普通用户, 2: 管理员)</span></th>
+                        <th>选择(增加/修改/删除)管理员</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <form action="/admin_page_UserManagement" method="post" onsubmit="return handleSubmit()">
+                            <td><input class="long" name="admin_account" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input class="long" name="admin_name" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input class="long" name="admin_password" type="text" required />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input class="long" name="admin_power" type="text" required pattern="[1-2]" title="权限只能为1或2" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>
+                                <select name="selected_one">
+                                    <option value="增加管理员" selected="selected">增加管理员</option>
+                                    <option value="修改管理员信息">修改管理员信息</option>
+                                    <option value="删除管理员">删除管理员</option>
+                                </select>
+                            </td>
+                            <td><input class="last" type="submit" value="操作" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td class="doit"><span>操作结果:{{insert_result}}</span></td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <td>账号</td>
+                        <td>用户名</td>
+                        <td>密码</td>
+                        <td>权限</td>
+                    </tr>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{result[1]}}</td>
+                        <td>{{result[2]}}</td>
+                        <td>{{result[3]}}</td>
+                        <td>{{result[4]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
