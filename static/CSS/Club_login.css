@@ -1,0 +1,106 @@
+/* 清除列表样式 */
+li {
+    list-style: none;
+}
+
+/* 全局样式 */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f7f9fc; /* 浅灰白色背景 */
+    font-family: Arial, sans-serif; /* 设置全局字体 */
+}
+
+/* 最大容器样式 */
+#maxbox {
+    margin: 200px auto 0;
+    padding: 20px 50px;
+    background-color: #ffffff; /* 白色背景 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+    text-align: center;
+    width: 600px;
+    height: 400px;
+    border-radius: 10px;
+}
+
+/* 标题样式 */
+#maxbox h1 {
+    margin: 0;
+    padding: 60px 0 4px;
+    color: #333333; /* 深灰色文字 */
+    font-size: 30px;
+    border-bottom: 2px solid #3498db; /* 蓝色下划线 */
+}
+
+/* 副标题样式 */
+#maxbox h2 {
+    font-weight: 700;
+    color: #555555; /* 中灰色文字 */
+}
+
+/* 输入框容器样式 */
+#maxbox .inputbox {
+    margin-top: 30px;
+}
+
+/* 输入文本样式 */
+#maxbox .inputText {
+    margin-top: 20px;
+}
+
+/* 输入文本标签样式 */
+#maxbox .inputText span {
+    color: #555555; /* 中灰色文字 */
+    font-size: 18px;
+}
+
+/* 输入框样式 */
+#maxbox .inputText input {
+    border: none;
+    padding: 6px;
+    border-bottom: 2px solid #3498db; /* 蓝色下划线 */
+    background-color: transparent;
+    color: #333333; /* 深灰色文字 */
+    outline: none; /* 去掉输入框的默认边框 */
+}
+
+/* 按钮样式 */
+#maxbox .inputbox .inputButton {
+    margin-top: 20px;
+    width: 145px;
+    height: 40px; /* 增加按钮高度 */
+    border: none;
+    border-radius: 25px;
+    color: white;
+    background-color: #3498db; /* 蓝色背景 */
+    cursor: pointer;
+    transition: background-color 0.3s; /* 添加过渡效果 */
+}
+
+#maxbox .inputbox .inputButton:hover {
+    background-color: #2980b9; /* 按钮悬停效果 */
+}
+
+/* 注册链接样式 */
+#sign_up {
+    margin-top: 50px;
+    color: #555555; /* 中灰色文字 */
+    font-size: 17px;
+}
+
+/* 注册链接颜色 */
+#sign_up a {
+    color: #3498db; /* 蓝色链接 */
+    text-decoration: none; /* 去掉下划线 */
+    transition: color 0.3s; /* 添加过渡效果 */
+}
+
+#sign_up a:hover {
+    color: #2980b9; /* 链接悬停效果 */
+}
+
+/* 隐藏元素 */
+.hidden {
+    display: none;
+}

@@ -1,0 +1,157 @@
+/* Club_main.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .left {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header .right, .header .right_right {
+    font-size: 18px;
+}
+
+.header .right_right a {
+    color: white;
+    text-decoration: none;
+}
+
+.header .right_right a:hover {
+    text-decoration: underline;
+}
+
+.leftside {
+    float: left;
+    width: 20%;
+    background-color: #0056b3;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+.leftside ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.leftside ul li {
+    margin-bottom: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.leftside ul li:hover {
+    background-color: #004494;
+    transform: translateX(5px);
+}
+
+.leftside ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    background-color: #0069d9;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.leftside ul li a:hover {
+    background-color: #0056b3;
+}
+
+.container-fluid {
+    margin-left: 22%;
+    padding: 20px;
+}
+
+.sub-header {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0056b3;
+}
+
+hr {
+    border: 1px solid #ddd;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+input.long {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+input.last {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input.last:hover {
+    background-color: #0056b3;
+}
+
+#Result {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #0056b3;
+}
+
+/* .leftside ul li.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.leftside ul li.active a {
+    color: #fff;
+} */
